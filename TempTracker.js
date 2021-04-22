@@ -1,11 +1,17 @@
 class TempTracker {
-    constructor(temp = null) {
+    constructor() {
         this.max = null;
         this.min = null;
-        this.avg = 0;
+        this.temps = [];
+        this.avg = null;
     }
     insert(num) {
+        
         let temp = Number(num);
+        if(isNaN(temp) || temp == ''){
+            alert("Please, insert a valid number");
+            return false;
+        };
 
         if (typeof this.min != 'number' || temp > this.max) {
             this.max = temp;
@@ -14,19 +20,34 @@ class TempTracker {
         if (typeof this.min != 'number' || temp < this.min) {
             this.min = temp;
         }
+        this.temps.push(temp);
+        let sum = this.temps.reduce((a, b) => a + b, 0)
 
+        this.avg = sum/this.temps.length;
 
-        this.avg = (this.max + this.min)/2
+        return true;
     }
     getMax() {
-        return this.max;
+        let max = this.max;
+        if(max == null){
+            return "no temperature recorded"
+        }
+        return max;
     }
 
     getMin() {
-        return this.min
+        let min = this.min;
+        if(min == null){
+            return "no temperature recorded"
+        }
+        return min;
     }
 
     getAvg() {
-        return this.avg;
+        let avg = this.avg;
+        if(avg == null){
+            return "no temperature recorded"
+        }
+        return avg;
     }
 }
